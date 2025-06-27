@@ -1,0 +1,14 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.KuwaharaFilter.cpp.obj": [
+			"KuwaharaFilter.init.gen.cpp.obj",
+			"KuwaharaFilterSubsystem.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"KuwaharaFilter.cpp.obj",
+			"KuwaharaFilterMaterial.cpp.obj",
+			"KuwaharaFilterSubsystem.cpp.obj",
+			"KuwaharaFilterViewExtension.cpp.obj"
+		]
+	}
+}

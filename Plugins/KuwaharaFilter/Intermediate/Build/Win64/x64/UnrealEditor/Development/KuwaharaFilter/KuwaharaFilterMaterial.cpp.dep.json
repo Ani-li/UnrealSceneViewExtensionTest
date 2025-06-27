@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "f:\\project\\gameproject\\ue\\shan\\plugins\\kuwaharafilter\\source\\kuwaharafilter\\private\\kuwaharafiltermaterial.cpp",
+        "ProvidedModule": "",
+        "PCH": "f:\\project\\gameproject\\ue\\shan\\intermediate\\build\\win64\\x64\\shaneditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "f:\\project\\gameproject\\ue\\shan\\plugins\\kuwaharafilter\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kuwaharafilter\\definitions.kuwaharafilter.h",
+            "f:\\project\\gameproject\\ue\\shan\\plugins\\kuwaharafilter\\source\\kuwaharafilter\\private\\kuwaharafiltermaterial.h",
+            "g:\\gd\\engine\\unrealengine\\ue_5.5\\engine\\source\\runtime\\rendercore\\public\\shaderparameterstruct.h",
+            "g:\\gd\\engine\\unrealengine\\ue_5.5\\engine\\source\\runtime\\rendercore\\public\\rendergraphresources.h",
+            "g:\\gd\\engine\\unrealengine\\ue_5.5\\engine\\source\\runtime\\rhi\\public\\rhitransientresourceallocator.h",
+            "g:\\gd\\engine\\unrealengine\\ue_5.5\\engine\\source\\runtime\\rendercore\\public\\rendergraphparameter.h",
+            "g:\\gd\\engine\\unrealengine\\ue_5.5\\engine\\source\\runtime\\rendercore\\public\\rendergraphresources.inl"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

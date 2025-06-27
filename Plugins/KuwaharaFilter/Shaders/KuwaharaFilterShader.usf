@@ -1,0 +1,90 @@
+﻿#include "/Engine/Private/Common.ush"
+
+Texture2D InputTexture;
+SamplerState InputSampler;
+float2 InputTextureSize;
+float KuwaharaRadius;
+
+float getPixelAngule(float2 uv)
+{
+	float GradientX = 0;
+	float GradientY = 0;
+	float SobelX[9] = {-1,-2,-1, 0, 0, 0, 1, 2, 1};
+	float SobelY[9] = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
+	int i = 0;
+	for(int x = -1; x<=1 ; x++)
+	{
+		for(int y = -1; y<=1 ; y++)
+		{
+			float2 Offset = float2(x, y) / InputTextureSize;
+			float3 PixelColor = InputTexture.SampleLevel(InputSampler, uv + Offset, 0).rgb;
+			float PixelValue = dot(PixelColor, float3(0.299, 0.587, 0.114));
+
+			GradientX += SobelX[i] * PixelValue;
+			GradientY += SobelY[i] * PixelValue;
+			i++;
+		}
+	}
+	return atan(GradientY/GradientX);
+}	
+
+float4 GetKernelMeanAndVariance(float2 UV, float4 Range, float2x2 RotationMatrix)
+{
+	float4 Mean = 0;
+	float4 Variance = 0;
+	int Samples = 0;
+	for(int x = Range.x; x < Range.y; x++)
+	{
+		for(int y = Range.z; y < Range.w; y++)
+		{
+			float2 Offset = mul(float2(x, y) / InputTextureSize , RotationMatrix);
+			float4 PixelColor = InputTexture.SampleLevel(InputSampler, UV + Offset, 0);
+			Mean += PixelColor;
+			Variance += PixelColor * PixelColor;
+			Samples++;
+		}
+	}
+
+	Mean /= Samples;
+	Variance= Variance / Samples - Mean * Mean;
+	float TotalVariance = Variance.r + Variance.g + Variance.b;
+	return float4(Mean.rgb, TotalVariance);
+}
+
+void MainPS(
+	in float4 SvPosition : SV_Position,
+	out float4 OutColor : SV_Target0
+)
+{
+	float2 uv = SvPosition.xy / InputTextureSize;
+	float4 MeanAndVariance[4];
+	float4 Range;
+
+	float Angle = getPixelAngule(uv);
+	float2x2 RotationMatrix = float2x2(cos(Angle), -sin(Angle), sin(Angle), cos(Angle));
+	Range = float4(-KuwaharaRadius, 0 , -KuwaharaRadius, 0);
+	MeanAndVariance[0] = GetKernelMeanAndVariance(uv, Range, RotationMatrix);
+	
+	Range = float4(0, KuwaharaRadius , -KuwaharaRadius, 0);
+	MeanAndVariance[1] = GetKernelMeanAndVariance(uv, Range, RotationMatrix);
+	
+	Range = float4(-KuwaharaRadius, 0 , 0, KuwaharaRadius);
+	MeanAndVariance[2] = GetKernelMeanAndVariance(uv, Range, RotationMatrix);
+	
+	Range = float4(0, KuwaharaRadius , 0 , KuwaharaRadius);
+	MeanAndVariance[3] = GetKernelMeanAndVariance(uv, Range, RotationMatrix);
+
+	float3 FinalColor = MeanAndVariance[0].rgb;
+	float MinimumVariance = MeanAndVariance[0].a;
+
+	for(int i = 1; i < 4; i++)
+	{
+		if(MeanAndVariance[i].a < MinimumVariance)
+		{
+			FinalColor = MeanAndVariance[i].rgb;
+			MinimumVariance = MeanAndVariance[i].a;
+		}
+	}
+	
+	OutColor = float4(FinalColor,1);
+}

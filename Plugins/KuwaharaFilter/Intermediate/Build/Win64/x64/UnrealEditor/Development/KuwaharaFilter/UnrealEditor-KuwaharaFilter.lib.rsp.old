@@ -1,0 +1,15 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-KuwaharaFilter.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"F:\Project\GameProject\UE\shan\Intermediate\Build\Win64\x64\shanEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\Module.KuwaharaFilter.cpp.obj"
+"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\KuwaharaFilter.cpp.obj"
+"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\KuwaharaFilterMaterial.cpp.obj"
+"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\KuwaharaFilterViewExtension.cpp.obj"
+"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\Default.rc2.res"
+/OUT:"F:\Project\GameProject\UE\shan\Plugins\KuwaharaFilter\Intermediate\Build\Win64\x64\UnrealEditor\Development\KuwaharaFilter\UnrealEditor-KuwaharaFilter.lib"
